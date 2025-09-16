@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Guardian AI Admin BASEMENT{% endblock %}
+
+{% block content %}
+<div class="center-btn" id="startContainer">
+    <p>Вы точно админ?</p>
+    <button id="playVideoBtn">Я точно админ!</button>
+</div>
+
+<div class="video-wrapper" id="videoWrapper">
+    <video id="rickrollVideo" src="{% static 'images/rickroll.mp4' %}" preload="auto"></video>
+</div>
+
+<style>
+.center-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.center-btn button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.center-btn button:hover {
+    background: #cc0000;
+}
+
+.video-wrapper {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #000;
+}
+
+.video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+</style>
+
+<script>
+document.getElementById('playVideoBtn').addEventListener('click', function() {
+    const startContainer = document.getElementById('startContainer');
+    const wrapper = document.getElementById('videoWrapper');
+    const video = document.getElementById('rickrollVideo');
+
+    startContainer.style.display = 'none';
+
+    wrapper.style.display = 'block';
+
+    video.volume = 1.0;
+    video.currentTime = 0;
+    video.play();
+});
+</script>
+{% endblock %}

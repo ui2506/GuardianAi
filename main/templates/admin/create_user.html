@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Создать пользователя{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Создать нового пользователя</h2>
+
+    <form method="post" novalidate id="createUserForm">
+        {% csrf_token %}
+        
+        <label for="username">Логин</label>
+        <input type="text" name="username" id="username" required>
+        <div class="error-text" id="usernameError"></div>
+
+        <label for="password">Пароль</label>
+        <input type="password" name="password" id="password" required>
+        <div class="error-text" id="passwordError"></div>
+
+        <label for="firstname">Имя</label>
+        <input type="text" name="firstname" id="firstname">
+
+        <label for="lastname">Фамилия</label>
+        <input type="text" name="lastname" id="lastname">
+
+        <button type="submit" class="btn-submit" id="submitBtn" disabled>Создать</button>
+    </form>
+</div>
+
+<style>
+.form-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #444;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px 14px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+.btn-submit {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.error-text {
+    font-size: 0.85rem;
+    color: red;
+    margin-top: 5px;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const usernameError = document.getElementById("usernameError");
+    const passwordError = document.getElementById("passwordError");
+
+    function validateForm() {
+        let valid = true;
+
+        const username = usernameInput.value.trim();
+        if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) {
+            usernameError.textContent = "Логин должен быть не короче 3 символов и без спецсимволов.";
+            valid = false;
+        } else {
+            usernameError.textContent = "";
+        }
+
+        const password = passwordInput.value;
+        if (password.length < 6 || !/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
+            passwordError.textContent = "Пароль ≥ 6 символов, должен содержать буквы и цифры.";
+            valid = false;
+        } else {
+            passwordError.textContent = "";
+        }
+
+        submitBtn.disabled = !valid;
+    }
+
+    usernameInput.addEventListener("input", validateForm);
+    passwordInput.addEventListener("input", validateForm);
+});
+</script>
+{% endblock %}

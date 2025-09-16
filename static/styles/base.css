@@ -1,0 +1,163 @@
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(6px);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #444;
+
+      text-decoration: none;
+    }
+
+    .nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #007bff;
+    }
+
+    /* ----- Сообщения ----- */
+    .message {
+        position: relative;
+        padding: 12px 16px 16px;
+        margin: 12px 10%;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 500;
+        overflow: hidden;
+
+        opacity: 0;
+        transform: translateY(-10px);
+        animation: fadeIn 0.4s forwards;
+        transition: opacity 0.5s, transform 0.5s;
+    }
+
+    /* Анимация появления */
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Анимация исчезновения */
+    .fade-out {
+        opacity: 0 !important;
+        transform: translateY(-10px);
+    }
+
+    /* Крестик */
+    .message .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    /* Прогресс-бар */
+    .message .progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background-color: rgba(0,0,0,0.25);
+        animation: progressBar linear forwards;
+    }
+
+    @keyframes progressBar {
+        from { width: 100%; }
+        to { width: 0%; }
+    }
+
+    .message.info {
+        background-color: #3498db;
+        color: white;      
+        border: 1px solid #b6effb;
+    }
+    .message.info .progress {
+        background-color: #73c4fa;
+    }
+
+    .message.success {
+        background-color: #2ecc71;
+        color: white; 
+        border: 1px solid #c3e6cb;
+    }
+    .message.success .progress {
+        background-color: #8cf6b8;
+    }
+
+    .message.error {
+        background-color: #e74c3c;
+        color: #ffffff;
+        border: 1px solid #f5c6cb;
+    }
+    .message.error .progress {
+        background-color: #f99286;
+    }
+
+    .message.warning {
+        background-color: #ffc400;
+        color: #ffffff;
+        border: 1px solid #ffeeba;
+    }
+    .message.warning .progress {
+        background-color: #f5dd8e;
+    }
+
+    footer {
+      background-color: #222;
+      color: #f1f1f1;
+      text-align: center;
+      padding: 15px 20px;
+      font-size: 14px;
+      border-top: 2px solid #444;
+      margin-top: auto;
+    }
+
+    footer p {
+      margin-bottom: 10px;
+      color: #aaa;
+    }
+
+    .socials a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .socials a:hover {
+      text-decoration: underline;
+    }

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Срочные вызовы{% endblock %}
+
+{% block content %}
+
+<div class="calls-container">
+    {% for call in calls %}
+        <div class="call-card">
+            <div class="call-header">
+            <div class="call-user">
+                {{ call.target.firstname }} {{ call.target.lastname }} ({{ call.target.username }})
+            </div>
+            <div class="call-risk {{ call.risk_level|lower }}">
+                {{ call.risk_level }}
+            </div>
+            </div>
+
+            <div class="call-body">
+            <p><strong>Сообщение:</strong> {{ call.message }}</p>
+            <p><strong>Рекомендуемое действие:</strong> {{ call.recommended_action }}</p>
+            <p><strong>Ответ пользователю:</strong> {{ call.reply_to_user }}</p>
+            </div>
+
+            <div class="call-date">
+            Последний вход: {{ call.target.lastlogin }} | Создано: {{ call.created_at }}
+            </div>
+
+            <div class="call-actions">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="take" value="{{ call.id }}">
+                <button type="submit">Откликнуться</button>
+            </form>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="delete" value="{{ call.id }}">
+                <button type="submit" {% if not call.is_taken %} disabled {% endif %}>Удалить</button>
+            </form>
+            </div>
+        </div>
+    {% empty %}
+        К счастью у никого нету проблем ;)
+    {% endfor %}
+</div>
+
+
+<style>
+.calls-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.call-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.call-card:hover {
+  transform: translateY(-3px);
+}
+
+.call-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.call-user {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.call-risk {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.call-risk.low {
+  background: #d4edda;
+  color: #155724;
+}
+
+.call-risk.medium {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.call-risk.high {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.call-body {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.call-body p {
+  margin-bottom: 8px;
+}
+
+.call-date {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.call-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.call-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.call-actions button:first-child {
+  background: #007bff;
+  color: #fff;
+}
+
+.call-actions button:first-child:hover {
+  background: #0056b3;
+}
+
+.call-actions button:last-child {
+  background: #dc3545;
+  color: #fff;
+}
+
+.call-actions button:last-child:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.call-actions button:last-child:hover:not(:disabled) {
+  background: #a71d2a;
+}
+</style>
+
+{% endblock %}

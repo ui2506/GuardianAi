@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход в аккаунт{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+    <h3>Вход</h3>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div>
+            <label for="username">Имя аккаунта</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+
+        <div>
+            <label for="password">Пароль</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <div>
+            <button type="submit">Войти</button>
+        </div>
+    </form>
+
+    <div>
+        <a href="{% url 'register' %}">Нет аккаунта?</a>
+    </div>
+</div>
+
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 60px auto;
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+.login-container h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.4rem;
+  color: #444;
+}
+
+.login-container form div {
+  margin-bottom: 20px;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.login-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-container button:hover {
+  background: #0056b3;
+}
+
+.login-container a {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+}
+
+.login-container button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const button = document.querySelector("button[type='submit']");
+
+    button.disabled = true;
+
+    function validateForm() {
+        const usernameValid = username.value.trim().length > 0;
+        const passwordValid = password.value.trim().length > 0;
+
+        if (usernameValid && passwordValid) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+
+    username.addEventListener("input", validateForm);
+    password.addEventListener("input", validateForm);
+});
+</script>
+
+{% endblock %}

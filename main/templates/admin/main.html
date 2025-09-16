@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная административная страница{% endblock %}
+
+{% block content %}
+
+<div class="admin-dashboard">
+    <h2>Здравствуй, дорогой администратор! 👋</h2>
+    <p>Рады видеть вас в наших рядах.  
+       В данный момент сайт находится в разработке :3</p>
+
+    <div class="admin-links">
+        <a href="{% url 'calls' %}" class="admin-btn">Срочные вызовы</a>
+        <a href="{% url 'user_list' %}" class="admin-btn">Список пользователей</a>
+        <a href="{% url 'create_user' %}" class="admin-btn">Создать нового пользователя</a>
+    </div>
+</div>
+
+<style>
+.admin-dashboard {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.admin-dashboard h2 {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.admin-dashboard p {
+    margin-bottom: 30px;
+    font-size: 1.05rem;
+    color: #555;
+}
+
+.admin-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.admin-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+</style>
+
+{% endblock %}
