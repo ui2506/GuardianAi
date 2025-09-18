@@ -1,7 +1,9 @@
 from django.contrib import messages, auth
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+
 from .models import Call, ChatMessage
 
 User = auth.get_user_model()
@@ -104,11 +106,6 @@ def admin_calls (request: HttpRequest) -> HttpResponse:
 
     return render(request, 'admin/calls.html', {'calls': calls})
 
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
-
 def create_user(request: HttpRequest) -> HttpResponse:
     if not request.user.is_superuser:
         return redirect('troll')
@@ -134,7 +131,6 @@ def create_user(request: HttpRequest) -> HttpResponse:
             return redirect('user_list')
 
     return render(request, 'admin/create_user.html')
-
 
 def register (request: HttpRequest) -> HttpResponse:
     user = request.user
